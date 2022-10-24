@@ -1,90 +1,95 @@
->>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
->>> bg = BaseGeometry()
+>>> base_geometry = __import__("7-base_geometry").BaseGeometry
 
->>> modulo_doc = __import__('7-base_geometry').__doc__
->>> print(len(modulo_doc) > 0)
+>>> len(__import__("7-base_geometry").__doc__) > 1
 True
 
->>> class_doc = __import__('7-base_geometry').BaseGeometry.__doc__
->>> print(len(class_doc) > 0)
+>>> len(__import__("7-base_geometry").BaseGeometry.__doc__) > 1
 True
 
->>> area_doc = __import__('7-base_geometry').BaseGeometry.area.__doc__
->>> print(len(area_doc) > 0)
+>>> met = __import__("7-base_geometry").BaseGeometry.integer_validator.__doc__
+>>> len(met) > 1
 True
 
->>> validate_doc = __import__('7-base_geometry').BaseGeometry.integer_validator.__doc__
->>> print(len(validate_doc) > 0)
-True
-
->>> bg.integer_validator("my_int", 12)
->>>
-
->>> bg.integer_validator("width", 89)
->>>
-
->>> bg.integer_validator("uno", 0)
+>>> ar = base_geometry()
+>>> ar.area()
 Traceback (most recent call last):
 ...
-ValueError: uno must be greater than 0
+Exception: area() is not implemented
 
->>> bg.integer_validator("dos", -1)
+>>> ar.area(33)
 Traceback (most recent call last):
 ...
-ValueError: dos must be greater than 0
+TypeError: area() takes 1 positional argument but 2 were given
 
->>> bg.integer_validator("tres", [])
+>>> ar.integer_validator("integer", 555)
+
+>>> ar.integer_validator("test", 0)
 Traceback (most recent call last):
 ...
-TypeError: tres must be an integer
+ValueError: test must be greater than 0
 
->>> bg.integer_validator("cuatro", {})
+>>> ar.integer_validator("test2", -444)
 Traceback (most recent call last):
 ...
-TypeError: cuatro must be an integer
+ValueError: test2 must be greater than 0
 
->>> bg.integer_validator("cinco", (1, 0))
+>>> ar.integer_validator("string", "python")
 Traceback (most recent call last):
 ...
-TypeError: cinco must be an integer
+TypeError: string must be an integer
 
->>> bg.integer_validator("seis", "")
+>>> ar.integer_validator("float", -444.54)
 Traceback (most recent call last):
 ...
-TypeError: seis must be an integer
+TypeError: float must be an integer
 
->>> bg.integer_validator("siete", 5.2)
+>>> ar.integer_validator("bool", True)
 Traceback (most recent call last):
 ...
-TypeError: siete must be an integer
+TypeError: bool must be an integer
 
->>> bg.integer_validator("ocho", 5j)
+>>> ar.integer_validator("list", [1, 2, 3])
 Traceback (most recent call last):
 ...
-TypeError: ocho must be an integer
+TypeError: list must be an integer
 
->>> bg.integer_validator("nueve", float('nan'))
+>>> ar.integer_validator("tuple", (22, 333))
 Traceback (most recent call last):
 ...
-TypeError: nueve must be an integer
+TypeError: tuple must be an integer
 
->>> bg.integer_validator("diez", float('inf'))
+>>> ar.integer_validator("complex", complex(33, 44))
 Traceback (most recent call last):
 ...
-TypeError: diez must be an integer
+TypeError: complex must be an integer
 
->>> bg.integer_validator("once", 100e319)
+>>> ar.integer_validator("dict", {"key": "value"})
 Traceback (most recent call last):
 ...
-TypeError: once must be an integer
+TypeError: dict must be an integer
 
->>> bg.integer_validator("doce", -5.2)
+>>> ar.integer_validator("set", {22, "python"})
 Traceback (most recent call last):
 ...
-TypeError: doce must be an integer
+TypeError: set must be an integer
 
->>> bg.integer_validator("trece", 0b010101)
->>>
+>>> ar.integer_validator("blue", None)
+Traceback (most recent call last):
+...
+TypeError: blue must be an integer
 
->>> bg.integer_validator("catorce", 0xAF56)
->>>
+
+>>> ar.integer_validator()
+Traceback (most recent call last):
+...
+TypeError: integer_validator() missing 2 required positional arguments: 'name' and 'value'
+
+>>> ar.integer_validator("integer")
+Traceback (most recent call last):
+...
+TypeError: integer_validator() missing 1 required positional argument: 'value'
+
+>>> ar.integer_validator("integer", 2, 2)
+Traceback (most recent call last):
+...
+TypeError: integer_validator() takes 3 positional arguments but 4 were given
