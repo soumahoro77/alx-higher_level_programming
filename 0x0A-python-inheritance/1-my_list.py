@@ -1,13 +1,14 @@
 #!/usr/bin/python3
 """
-This program creates a class called MyList that inherits of the class List
+This module has a class MyList that inherits from
+list. Has a public instance method print_sorted that
+prints the list in ascending order
 """
 
 
 class MyList(list):
     """
-    This class inherits form the class list an can print it's elements sorted
+    class that inherits from list
     """
-
     def print_sorted(self):
         print(sorted(self))
